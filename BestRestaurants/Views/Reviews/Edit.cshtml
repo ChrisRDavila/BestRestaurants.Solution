@@ -1,0 +1,24 @@
+@{
+  Layout = "_Layout";
+}
+
+@model BestRestaurants.Models.Review
+
+<h2>Edit</h2>
+
+<h4>Edit this Review: @Html.DisplayFor(model => model.Critic)</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.ReviewId)
+
+    @Html.LabelFor(model => model.Critic)
+    @Html.EditorFor(model => model.Critic)
+    @Html.LabelFor(model => model.Rating)
+    @Html.EditorFor(model => model.Rating)
+    @Html.LabelFor(model => model.Entry)
+    @Html.EditorFor(model => model.Entry)
+
+    <input type="submit" value="Save" />
+}
+<p>@Html.ActionLink("Back to list", "Index")</p>
