@@ -7,5 +7,7 @@ namespace BestRestaurants.Models
 
     public int CuisineId { get; set; }
     public Cuisine Cuisine { get; set; }
+    public int ReviewId { get; set; }
+    public Review Review { get; set; }
   }
 }
