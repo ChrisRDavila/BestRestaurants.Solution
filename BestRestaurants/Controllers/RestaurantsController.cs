@@ -21,6 +21,7 @@ namespace BestRestaurants.Controllers
     {
       List<Restaurant> model = _db.Restaurants
                                   .Include(restaurant => restaurant.Cuisine)
+                                  .OrderBy(restaurant => restaurant.Cuisine.Type)
                                   .ToList();
       ViewBag.PageTitle = "View All Restaurants";                     
       return View(model);
