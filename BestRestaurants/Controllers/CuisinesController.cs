@@ -18,7 +18,7 @@ namespace BestRestaurants.Controllers
 
     public ActionResult Index()
     {
-      List<Cuisine> model = _db.Cuisines.ToList();
+      List<Cuisine> model = _db.Cuisines.OrderBy(cuisine => cuisine.Type).ToList();
       return View(model);
     }
 
@@ -70,6 +70,33 @@ namespace BestRestaurants.Controllers
       _db.Cuisines.Remove(thisCuisine);
       _db.SaveChanges();
       return RedirectToAction("Index");
+    }
+
+    public ActionResult Search()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public ActionResult Results(string type)
+    {
+      Cuisine thisCuisine = _db.Cuisines
+                                  .Include(cuisine => cuisine.Restaurants)
+                                  .FirstOrDefault(cuisine => cuisine.Type == type);                              
+      if (thisCuisine != null)
+      {
+        return View(thisCuisine);
+      }
+      
+      else 
+      {
+        return RedirectToAction("NoResults");
+      }
+    }
+
+    public ActionResult NoResults()
+    {
+      return View();
     }
   }
 }

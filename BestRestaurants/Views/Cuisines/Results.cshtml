@@ -5,15 +5,11 @@
 @model BestRestaurants.Models.Cuisine
 @using BestRestaurants.Models
 
-<h2>Cuisine Details</h2>
+<h2>Search Results:</h2>
 <hr />
 <h3>@Html.DisplayNameFor(model => model.Type): @Html.DisplayFor(model => model.Type)<h3>
 
-@if (@Model.Restaurants.Count == 0)
-{
-  <h3>No restaurants have been added to this type of cuisine yet!</h3>
-} 
-else
+
 {
   <h3>Restaurants:</h3>
   <ul>
@@ -24,6 +20,4 @@ else
   </ul>
 }
 
-<p>@Html.ActionLink("Edit Cuisine", "Edit", new { id = Model.CuisineId })</p>
-<p>@Html.ActionLink("Delete Cuisine", "Delete", new { id = Model.CuisineId })</p>
-<p>@Html.ActionLink("Back to list", "Index")</p>
+</ul>
