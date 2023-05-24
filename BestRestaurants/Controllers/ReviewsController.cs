@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using BestRestaurants.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BestRestaurants.Controllers
 {
@@ -18,18 +19,26 @@ namespace BestRestaurants.Controllers
 
     public ActionResult Index()
     {
-      List<Review> model = _db.Reviews.OrderBy(review => review.Critic).ToList();
+      List<Review> model = _db.Reviews
+                            .Include(review => review.Restaurant)
+                            .ToList();
       return View(model);
     }
 
     public ActionResult Create()
     {
+      ViewBag.RestaurantId = new SelectList(_db.Restaurants, "RestaurantId", "Name");
       return View();
     }
 
     [HttpPost]
     public ActionResult Create(Review review)
     {
+      
+      if (review.RestaurantId == 0)
+      {
+        return RedirectToAction("Create");
+      }
       _db.Reviews.Add(review);
       _db.SaveChanges();
       return RedirectToAction("Index");
@@ -38,7 +47,7 @@ namespace BestRestaurants.Controllers
     public ActionResult Details(int id)
     {
       Review thisReview = _db.Reviews
-                                  .Include(review => review.Restaurants)
+                                  .Include(review => review.Restaurant)
                                   .FirstOrDefault(review => review.ReviewId == id);
       return View(thisReview);
     }
@@ -46,6 +55,7 @@ namespace BestRestaurants.Controllers
     public ActionResult Edit(int id)
     {
       Review thisReview = _db.Reviews.FirstOrDefault(review => review.ReviewId == id);
+      ViewBag.RestaurantId = new SelectList(_db.Restaurants, "RestaurantId", "Name");
       return View(thisReview);
     }
 

@@ -10,16 +10,17 @@
 {
   <h3>No reviews have been added yet!</h3>
 } 
+else
+{
+  <ul>
+    @foreach(Review review in Model)
+    {
+      <li>@Html.ActionLink($"{review.Critic}", "Details", new { id = review.ReviewId }) | @review.Restaurant.Name</li>
+    }
+  </ul>
+}
 
-<ul>
-  @foreach(Review review in Model)
-  {
-    <li>@Html.ActionLink($"{review.Critic}", "Details", new { id = review.ReviewId })</li>
-  }
-</ul>
-
-<p>@Html.ActionLink("Add new cuisine", "Create", "Cuisine")</p>
-<p>@Html.ActionLink("Add new Restaurant", "Create", "Restaurants")</p>
-<p>@Html.ActionLink("Add new review", "Create")</p>
+@* <p>@Html.ActionLink("Add new Restaurant", "Create", "Restaurants")</p> *@
+<p>@Html.ActionLink("Add new review", "Create", "Reviews")</p>
 <p>@Html.ActionLink("Home", "Index", "Home")</p>
 @* <p>@Html.ActionLink("Search", "Search")</p> *@

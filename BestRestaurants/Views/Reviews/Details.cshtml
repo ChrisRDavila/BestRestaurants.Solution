@@ -3,28 +3,13 @@
 }
 
 @model BestRestaurants.Models.Review
-@using BestRestaurants.Models
 
 <h2>Review Details</h2>
 <hr />
 <h3>@Html.DisplayNameFor(model => model.Critic): @Html.DisplayFor(model => model.Critic)<h3>
 <h3>@Html.DisplayNameFor(model => model.Rating): @Html.DisplayFor(model => model.Rating)<h3>
 <h3>@Html.DisplayNameFor(model => model.Entry): @Html.DisplayFor(model => model.Entry)<h3>
-
-@if (@Model.Restaurants.Count == 0)
-{
-  <h3>No restaurants have been added to this type of cuisine yet!</h3>
-} 
-else
-{
-  <h3>Restaurants:</h3>
-  <ul>
-    @foreach (Restaurant restaurant in Model.Restaurants)
-    {
-      <li>@Html.ActionLink($"{restaurant.Name}", "Details", "Restaurants", new { id = restaurant.RestaurantId })</li>
-    }
-  </ul>
-}
+<h3>@Html.DisplayNameFor(model => model.Restaurant): @Html.DisplayFor(model => model.Restaurant.Name)<h3>
 
 <p>@Html.ActionLink("Edit Review", "Edit", new { id = Model.ReviewId })</p>
 <p>@Html.ActionLink("Delete Review", "Delete", new { id = Model.ReviewId })</p>
